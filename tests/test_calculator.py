@@ -12,12 +12,13 @@ class TestDelivery(unittest.TestCase):
         app.config['WTF_CSRF_ENABLED'] = False
 
 
-    # Test GET / (home)
-    def test_home(self):
+    # Generic tests for the endpoint
+    def test_endpoint(self):
         test_app = app.test_client()
 
-        response = test_app.get('/')
-        self.assertEqual(response.status_code, 200)
+        # Try un-allowed method
+        response = test_app.get('/delivery_calculator')
+        self.assertEqual(response.status_code, 405)
 
     # Test develiveries with invalid <cart_value>
     def test_cart_exceptions(self):

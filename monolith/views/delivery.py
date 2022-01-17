@@ -1,8 +1,11 @@
 from flask import Blueprint, request, jsonify
-from ..utils import check_payload_parameters, compute_delivery_fee
+from ..utils import check_payload_parameters
+from .. import calculator as c
 
 
 delivery = Blueprint('delivery', __name__)
+
+calculator = c.Calculator()
 
 
 @delivery.route('/delivery_calculator', methods=['POST'])
@@ -26,7 +29,7 @@ def delivery_calculator():
             }
             return jsonify(response), 422
 
-        delivery_fee = compute_delivery_fee(payload)
+        delivery_fee = calculator.compute_delivery_fee(payload)
         response = {
             'status': 'Success',
             'delivery_fee': delivery_fee

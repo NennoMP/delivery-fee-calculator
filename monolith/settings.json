@@ -1,0 +1,17 @@
+{
+    "delivery_fees": {
+        "min_order_no_surcharge": 1000,
+        "min_order_free_delivery": 10000,
+        "distance_block_size": 500,
+        "distance_fee": 100,
+        "n_items_fee_free": 4,
+        "item_fee": 50,
+        "max_fee": 1500
+    },
+    "special_rush": {
+        "weekday": 4,
+        "start_time": 15,
+        "end_time": 19,
+        "multiplier": 1.1
+    }
+}
