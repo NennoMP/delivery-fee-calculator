@@ -72,6 +72,7 @@ class Calculator:
         cart_value          = payload['cart_value']
         delivery_distance   = payload['delivery_distance']
         n_items             = payload['number_of_items']
+        order_time          = payload['time]
 
         # Multiplier for the Friday rush
         multiplier = 1
@@ -79,7 +80,7 @@ class Calculator:
         # Check if cart value greater than 100€
         if cart_value < self.min_order_free_delivery:
             # Check if special rush weekday
-            if self.is_friday_rush(payload['time']):
+            if self.is_friday_rush(order_time):
                 multiplier = self.multiplier # update multiplier
             
             # Cart value fee (if smaller than 10€)
