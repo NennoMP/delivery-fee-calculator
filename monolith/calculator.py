@@ -72,7 +72,7 @@ class Calculator:
         cart_value          = payload['cart_value']
         delivery_distance   = payload['delivery_distance']
         n_items             = payload['number_of_items']
-        order_time          = payload['time]
+        order_time          = payload['time']
 
         # Multiplier for the Friday rush
         multiplier = 1
