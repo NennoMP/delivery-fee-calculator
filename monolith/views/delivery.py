@@ -34,7 +34,7 @@ def delivery_calculator():
         except ValidationError:
             response = {
                 'status': 'Failed',
-                'message': '<time> must be in ISO format and cannot be in the past, other parameters must be integers and cannot be smaller or equal to 0'
+                'message': '<time> must be a timestamp in ISO format and cannot be in the past, other parameters must be integers and cannot be smaller or equal to 0'
             }
             return jsonify(response), 422
 

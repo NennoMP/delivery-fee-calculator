@@ -46,21 +46,16 @@ components:
         - time
       properties:
         cart_value:
-          type: integer
-          description: Value of the shopping cart (in cents)
+          description: Value of the shopping cart in cents (integer)
           example: 790
         delivery_distance:
-          type: integer
-          description: The distance between the store and customer's location (in meters)
+          description: The distance between the store and customer's location in meters (integer)
           example: 2235
         number_of_items:
-          type: integer
-          description: The number of items in the customer's shopping cart
+          description: The number of items in the customer's shopping cart (integer)
           example: 4
         time:
-          type: string
-          description: Order time in ISO format (UTC)
-          format: date-time
+          description: Order time in ISO format (string)
           example: '2023-09-25T13:00:00Z'
     ResponseSuccess:
       type: object
