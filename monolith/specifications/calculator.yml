@@ -1,0 +1,56 @@
+openapi: "3.0.1"
+
+info:
+  title: Delivery Fee Calculator API
+  description: OpenAPI specifications for Delivery Fee Calculator endpoints
+  version: "0.1"
+
+servers:
+  - url: /
+
+paths:
+  /delivery_calculator:
+    post:
+      summary: Compute and retrieve delivery fee
+      operationId: monolith.views.delivery.delivery_calculator
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/delivery_order'
+      responses:
+        200:
+          description: Return delivery fee
+        422:
+          description: Invalid paramaters, return message error
+        default:
+          description: An error occurred while processing the delivery fee
+
+components:
+  schemas:
+    delivery_order:
+      required:
+        - cart_value
+        - delivery_distance
+        - number_of_items
+        - time
+      type: object
+      properties:
+        cart_value:
+          type: integer
+          description: Value of the shopping cart (in cents)
+          example: 790
+        delivery_distance:
+          type: integer
+          description: The distance between the store and customer's location (in meters)
+          example: 2235
+        number_of_items:
+          type: integer
+          description: The number of items in the customer's shopping cart
+          example: 4
+        time:
+          type: string
+          description: Order time in ISO format
+          format: date-time
+          example: '2023-09-25T13:00:00Z'

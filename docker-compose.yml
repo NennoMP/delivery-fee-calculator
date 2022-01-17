@@ -1,0 +1,14 @@
+#
+# Docker compose for Delivery Fee Calculator v1.0
+#
+
+version: "3.9"
+
+services:
+  delivery_fee_calculator:
+    image: "monolith:latest"
+    build: .
+
+    ports:
+      - "5000:5000"
+
