@@ -81,6 +81,6 @@ components:
             type: string
             example: Failed
           message:
-            type: string
-            description: Brief description of the possible problems
-            example: Parameters cannot be smaller or equal to 0, the datetime must be in ISO format and cannot be in the past
+            type: object
+            description: List of invalid arguments and corresponding problem
+            example: '{cart_value: ["Must be greater than or equal to 1.]}"'

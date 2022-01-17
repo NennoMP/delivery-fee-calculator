@@ -31,10 +31,10 @@ def delivery_calculator():
                 order_time=payload['time']
             )
             DeliveryOrderSchema().load(asdict(delivery_order))
-        except ValidationError:
+        except ValidationError as ve:
             response = {
                 'status': 'Failed',
-                'message': '<time> must be a timestamp in ISO format and cannot be in the past, other parameters must be integers and cannot be smaller or equal to 0'
+                'message': ve.messages
             }
             return jsonify(response), 422
 

@@ -6,9 +6,18 @@ class DeliveryOrderSchema(Schema):
     """Delivery Order model schema which allows to validate the parameters."""
 
     # Integer parameters cannot be smaller or equal than 0
-    cart_value = fields.Integer(validate=validate.Range(min=1))
-    delivery_distance = fields.Integer(validate=validate.Range(min=1))
-    n_items = fields.Integer(validate=validate.Range(min=1))
+    cart_value = fields.Integer(
+                        strict=True, 
+                        validate=validate.Range(min=1)
+                    )
+    delivery_distance = fields.Integer(
+                        strict=True,
+                        validate=validate.Range(min=1)
+                    )
+    n_items = fields.Integer(
+                        strict=True, 
+                        validate=validate.Range(min=1)
+                    )
     
     # Datetime must be ISO format and cannot be in the past
     order_time = fields.DateTime(
