@@ -28,7 +28,7 @@ def delivery_calculator():
                 cart_value=payload['cart_value'],
                 delivery_distance=payload['delivery_distance'],
                 n_items=payload['number_of_items'],
-                order_time=payload['time']
+                time=payload['time']
             )
             DeliveryOrderSchema().load(asdict(delivery_order))
         except ValidationError as ve:
