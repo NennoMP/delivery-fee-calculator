@@ -11,7 +11,6 @@ class TestHome(unittest.TestCase):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
 
-
     # Test GET / (home)
     def test_home(self):
         test_app = app.test_client()

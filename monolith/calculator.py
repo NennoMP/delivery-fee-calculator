@@ -7,8 +7,8 @@ file_settings = "monolith/settings.json"
 
 
 class Calculator:
-    """Class that implements auxiliary functions for computing the total   delivery fee.
-    """
+    """Calculator class that for computing the delivery fee of an order."""
+
     # Attributes
     min_order_no_surcharge: int     # min cart value with no surcharge
     min_order_free_delivery: int    # min cart value for free delivery
@@ -28,6 +28,7 @@ class Calculator:
 
 
     def __init__(self):
+        # Load default parameters from a settings file
         with open(file_settings) as inf:
             file = json.load(inf)
 

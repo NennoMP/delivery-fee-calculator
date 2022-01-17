@@ -11,7 +11,6 @@ class TestDelivery(unittest.TestCase):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
 
-
     # Generic tests for the endpoint
     def test_endpoint(self):
         test_app = app.test_client()
@@ -36,7 +35,6 @@ class TestDelivery(unittest.TestCase):
         
         self.assertEqual(response.status_code, 422)
         self.assertEqual(json_response['status'], 'Failed')
-        self.assertEqual(json_response['message'], '<cart_value> cannot be 0 or a negative integer')
 
         # <cart_value> invalid (equal to 0)
         payload = {
@@ -50,7 +48,6 @@ class TestDelivery(unittest.TestCase):
         
         self.assertEqual(response.status_code, 422)
         self.assertEqual(json_response['status'], 'Failed')
-        self.assertEqual(json_response['message'], '<cart_value> cannot be 0 or a negative integer')
 
     # Test develiveries with valid <cart_value>
     def test_cart(self):
@@ -156,7 +153,6 @@ class TestDelivery(unittest.TestCase):
         
         self.assertEqual(response.status_code, 422)
         self.assertEqual(json_response['status'], 'Failed')
-        self.assertEqual(json_response['message'], '<delivery_distance> cannot be 0 or a negative integer')
 
         # <delivery_distance> invalid (equal to 0)
         payload = {
@@ -170,7 +166,6 @@ class TestDelivery(unittest.TestCase):
         
         self.assertEqual(response.status_code, 422)
         self.assertEqual(json_response['status'], 'Failed')
-        self.assertEqual(json_response['message'], '<delivery_distance> cannot be 0 or a negative integer')
 
     # Test develiveries with valid <delivery_distance>
     def test_distance(self):
@@ -220,7 +215,6 @@ class TestDelivery(unittest.TestCase):
         
         self.assertEqual(response.status_code, 422)
         self.assertEqual(json_response['status'], 'Failed')
-        self.assertEqual(json_response['message'], '<number_of_items> cannot be 0 or a negative integer')
 
         # <number_of_items> invalid (equal to 0)
         payload = {
@@ -234,7 +228,6 @@ class TestDelivery(unittest.TestCase):
         
         self.assertEqual(response.status_code, 422)
         self.assertEqual(json_response['status'], 'Failed')
-        self.assertEqual(json_response['message'], '<number_of_items> cannot be 0 or a negative integer')
 
     # Test develiveries with valid <number_of_items>
     def test_items(self):
@@ -258,6 +251,32 @@ class TestDelivery(unittest.TestCase):
     def test_time_exceptions(self):
         test_app = app.test_client()
 
+        # <time> is not a datetime
+        payload = {
+                'cart_value': 500,
+                'delivery_distance': 2000,
+                'number_of_items': 4,
+                'time': 'wrong'
+        }
+        response = test_app.post('/delivery_calculator', json=payload)
+        json_response = response.json
+        
+        self.assertEqual(response.status_code, 422)
+        self.assertEqual(json_response['status'], 'Failed')
+        
+        # <time> is not ISO format
+        payload = {
+                'cart_value': 500,
+                'delivery_distance': 2000,
+                'number_of_items': 4,
+                'time': '2023-10-12'
+        }
+        response = test_app.post('/delivery_calculator', json=payload)
+        json_response = response.json
+        
+        self.assertEqual(response.status_code, 422)
+        self.assertEqual(json_response['status'], 'Failed')
+
         # <time> in the past
         payload = {
                 'cart_value': 500,
@@ -270,7 +289,6 @@ class TestDelivery(unittest.TestCase):
         
         self.assertEqual(response.status_code, 422)
         self.assertEqual(json_response['status'], 'Failed')
-        self.assertEqual(json_response['message'], '<time> cannot be in the past')
 
     # Test develiveries with valid <time>
     def test_time(self):

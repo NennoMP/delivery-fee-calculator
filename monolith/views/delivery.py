@@ -1,17 +1,18 @@
 from flask import Blueprint, request, jsonify
-from ..utils import check_payload_parameters
 from .. import calculator as c
+from marshmallow import ValidationError
+from dataclasses import asdict
 
+from ..models.delivery_order import DeliveryOrderSchema, DeliveryOrder
 
 delivery = Blueprint('delivery', __name__)
-
 calculator = c.Calculator()
 
 
 @delivery.route('/delivery_calculator', methods=['POST'])
 def delivery_calculator():
     """
-    Manage the delivery fee costs of the orders.
+    Manage the delivery fee costs of an order.
 
         POST: compute and return total delivery fee
         :return: json response and status code
@@ -19,13 +20,21 @@ def delivery_calculator():
         - 422: invalid parameters in body
     """
 
-    payload = request.get_json()
     if request.method == 'POST':
-        valid, message = check_payload_parameters(payload)
-        if not valid:
+        payload = request.get_json()
+
+        try:
+            delivery_order = DeliveryOrder(
+                cart_value=payload['cart_value'],
+                delivery_distance=payload['delivery_distance'],
+                n_items=payload['number_of_items'],
+                order_time=payload['time']
+            )
+            DeliveryOrderSchema().load(asdict(delivery_order))
+        except ValidationError:
             response = {
                 'status': 'Failed',
-                'message': message,
+                'message': '<time> must be in ISO format and cannot be in the past, other parameters must be integers and cannot be smaller or equal to 0'
             }
             return jsonify(response), 422
 
@@ -34,8 +43,8 @@ def delivery_calculator():
             'status': 'Success',
             'delivery_fee': delivery_fee
         }
-                
-    return jsonify(response), 200
+                    
+        return jsonify(response), 200
         
 
         

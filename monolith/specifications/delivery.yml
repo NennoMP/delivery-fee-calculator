@@ -18,24 +18,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/delivery_order'
+              $ref: '#/components/schemas/DeliveryOrder'
       responses:
         200:
-          description: Return delivery fee
+          description: Return delivery fee (cents) and status
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/ResponseSuccess'
         422:
-          description: Invalid paramaters, return message error
+          description: Invalid paramaters, return message error and status
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/ResponseError'
         default:
           description: An error occurred while processing the delivery fee
 
 components:
   schemas:
-    delivery_order:
+    DeliveryOrder:
+      type: object
       required:
         - cart_value
         - delivery_distance
         - number_of_items
         - time
-      type: object
       properties:
         cart_value:
           type: integer
@@ -51,6 +59,33 @@ components:
           example: 4
         time:
           type: string
-          description: Order time in ISO format
+          description: Order time in ISO format (UTC)
           format: date-time
           example: '2023-09-25T13:00:00Z'
+    ResponseSuccess:
+      type: object
+      required:
+        - status
+        - delivery_fee
+      properties:
+        status:
+          type: string
+          description: Status of the request
+          example: Success
+        delivery_fee:
+          type: integer
+          description: Total delivery fee (in cents)
+          example: 710
+    ResponseError:
+        type: object
+        required:
+          - status
+          - message
+        properties:
+          status:
+            type: string
+            example: Failed
+          message:
+            type: string
+            description: Brief description of the possible problems
+            example: Parameters cannot be smaller or equal to 0, the datetime must be in ISO format and cannot be in the past
