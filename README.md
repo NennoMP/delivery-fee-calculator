@@ -1,6 +1,8 @@
 # Wolt Summer 2022 Software Engineering Internship (Backend)
 
 [![CircleCI](https://circleci.com/gh/NennoMP/delivery-fee-calculator.svg?style=svg)](https://app.circleci.com/pipelines/github/NennoMP/delivery-fee-calculator)
+[![codecov](https://codecov.io/gh/NennoMP/delivery-fee-calculator/branch/main/graph/badge.svg?token=STRMRZLL8T)](https://codecov.io/gh/NennoMP/delivery-fee-calculator)
+
 
 ## Instructions
 In order to create OpenAPI specification for the API endpoints, Swagger and Connexion were used. The Swagger interface, which allows to analyze and test the endpoints simply from a web-browser, can be accessed with **/ui**. The application should be running on **localhost (127.0.0.1:5000)**.
