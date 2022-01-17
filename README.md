@@ -1,3 +1,9 @@
+# Wolt Summer 2022 Software Engineering Internship (Backend)
+
+[![CircleCI](https://circleci.com/gh/NennoMP/delivery-fee-calculator.svg?style=svg)](https://app.circleci.com/pipelines/github/NennoMP/delivery-fee-calculator)
+[![codecov](https://codecov.io/gh/NennoMP/delivery-fee-calculator/branch/main/graph/badge.svg?token=STRMRZLL8T)](https://codecov.io/gh/NennoMP/delivery-fee-calculator)
+[![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
+
 ## Overview
 The application is implemented with a monolith-based architecture and is completely Dockerized. 
 
