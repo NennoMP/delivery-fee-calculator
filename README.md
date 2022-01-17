@@ -4,8 +4,8 @@
 [![codecov](https://codecov.io/gh/NennoMP/delivery-fee-calculator/branch/main/graph/badge.svg?token=STRMRZLL8T)](https://codecov.io/gh/NennoMP/delivery-fee-calculator)
 
 
-## Instructions
-In order to create OpenAPI specification for the API endpoints, Swagger and Connexion were used. The Swagger interface, which allows to analyze and test the endpoints simply from a web-browser, can be accessed with **/ui**. The application should be running on **localhost (127.0.0.1:5000)**.
+## Overview
+In order to create OpenAPI documentation for the API endpoints, Swagger and Connexion framework were used. The Swagger interface, which allows to analyze and test the endpoints simply from the web-browser, can be accessed with **/ui**. The application should be running on **localhost:5000 (127.0.0.1:5000)**.
 
 You can decide to test/run the application with or without Docker, below you can find the steps for both approaches.
 
