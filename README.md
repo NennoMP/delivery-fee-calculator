@@ -22,7 +22,7 @@ If you want to run the application with Docker, make sure you have Docker Deskto
 2. Build the project with `docker-compose build`
 3. Run the application with `docker-compose up`
 
-### Run the application (Flask version)
+### Run the application (Script version)
 
 If you want to run the application without Docker, you have to follow these steps:
 
