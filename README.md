@@ -7,12 +7,12 @@
 ## Overview
 The application is implemented with a monolith-based architecture and is completely Dockerized. 
 
-In order to create OpenAPI documentation for the APIs, Swagger and Connexion framework were used. The application should be running on **localhost:5000 (127.0.0.1:5000)** and the Swagger interface, which allows to analyze and test the endpoints simply from the web-browser, can be accessed at **localhost/ui (127.0.0.1:5000/ui)**.
+In order to create OpenAPI documentation for the APIs, Swagger and Connexion framework were used. The application should be running on **localhost:5000 (127.0.0.1:5000)** and the Swagger interface, which allows to analyze and test the endpoints simply from the web-browser, can be accessed at **localhost:5000/ui (127.0.0.1:5000/ui)**.
 
 Some **CI/CD tools (CircleCI, Codecov)** were used in order to build and test the project, as can be seen from the above badges, and, from a security point of view, the application was tested with **Bandit** (static vulnerabilities' analysis).
 
 ## Instructions
-You can decide to test/run the application with or without Docker, notice that if you're on Windows you **MUST** run the application with Docker (since `time.tzset()`) is available only on Unix).
+You can decide to test/run the application with or without Docker, notice that if you're on Windows you **MUST** run the application with Docker (since `time.tzset()` is available only on Unix).
 Below you can find a short tutorial for both approaches.
 ### Run the application (Docker version)
 
