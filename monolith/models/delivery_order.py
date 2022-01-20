@@ -2,6 +2,7 @@ from datetime import datetime as dt
 from marshmallow import Schema, fields, validate
 from dataclasses import dataclass
 
+
 class DeliveryOrderSchema(Schema):
     """Delivery Order model schema which allows to validate the parameters."""
 

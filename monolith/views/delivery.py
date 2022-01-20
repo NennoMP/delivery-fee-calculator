@@ -5,6 +5,7 @@ from dataclasses import asdict
 
 from ..models.delivery_order import DeliveryOrderSchema, DeliveryOrder
 
+
 delivery = Blueprint('delivery', __name__)
 calculator = c.Calculator()
 
@@ -23,6 +24,7 @@ def delivery_calculator():
     if request.method == 'POST':
         payload = request.get_json()
 
+        # Data validators
         try:
             delivery_order = DeliveryOrder(
                 cart_value=payload['cart_value'],
@@ -38,6 +40,7 @@ def delivery_calculator():
             }
             return jsonify(response), 422
 
+        # Get total delivery fee
         delivery_fee = calculator.compute_delivery_fee(payload)
         response = {
             'status': 'Success',

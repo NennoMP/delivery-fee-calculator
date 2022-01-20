@@ -5,11 +5,38 @@
 [![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
 
 ## Overview
-The application is implemented with a monolith-based architecture and is completely Dockerized. 
+The application is implemented with a monolith-based architecture, since it is not complex enough for a microservice-based one, is completely Dockerized and PEP8 compliant.
 
 In order to create OpenAPI documentation for the APIs, Swagger and Connexion framework were used. The application should be running on **localhost:5000 (127.0.0.1:5000)** and the Swagger interface, which allows to analyze and test the endpoints simply from the web-browser, can be accessed at **localhost/ui (127.0.0.1:5000/ui)**.
 
 Some **CI/CD tools (CircleCI, Codecov)** were used in order to build and test the project, as can be seen from the above badges, and, from a security point of view, the application was tested with **Bandit** (static vulnerabilities' analysis).
+
+### Settings
+Static data related to the application is stored in the configuation file `settings.json`.
+```json
+{
+    "delivery_fees": {
+        "min_order_no_surcharge": 1000,
+        "min_order_free_delivery": 10000,
+        "distance_block_size": 500,
+        "distance_fee": 100,
+        "n_items_fee_free": 4,
+        "item_fee": 50,
+        "max_fee": 1500
+    },
+    "special_rush": {
+        "weekday": 4,
+        "start_time": 15,
+        "end_time": 19,
+        "multiplier": 1.1
+    }
+}
+```
+
+### APIs
+For what concern data validation, the `marshmallow` library was used in order to define schemas/models (`models/delivery_order.py`). I assumed that the input parameters that were integers could not be negative (trivial) and not equal to 0, and that the order datetime could not be in the past.
+
+I would've added rate limiting and payload size limits in order to prevent possible DoS and brute force attacks. However, I thought this could be a bit overkill for this assignment and I decided to not implement them, since they were not requirements.
 
 ## Instructions
 You can decide to test/run the application with or without Docker, notice that if you're on Windows you **MUST** run the application with Docker (since `time.tzset()`) is available only on Unix).

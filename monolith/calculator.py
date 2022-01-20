@@ -24,7 +24,7 @@ class Calculator:
     # 24h format
     start_time: int
     end_time: int
-    multiplier: int                 # multiplier to apply to total delivery
+    multiplier: int                 # multiplier to apply to total delivery fee in case of special rush weekday
 
 
     def __init__(self):
@@ -46,15 +46,15 @@ class Calculator:
             self.end_time = file['special_rush']['end_time']
             self.multiplier = file['special_rush']['multiplier']
 
-    def is_friday_rush(self, order_datetime: str) -> bool:
-        """Checks if the order datetime falls during the Friday rush.
+    def is_special_rush(self, order_datetime: str) -> bool:
+        """Checks if the order datetime (day and hourly range) falls during the special rush.
         
         :param order_time: datetime of the delivery order
         :return: True or False
         """
         order_datetime = pd.Timestamp(order_datetime)
 
-        # Check if the day of order datetime is Friday
+        # Check if the day of order datetime
         if order_datetime.dayofweek == self.special_rush_weekday:
             # Check hourly range
             if order_datetime.hour >= self.start_time and order_datetime.hour < self.end_time:
@@ -62,12 +62,59 @@ class Calculator:
 
         return False
 
+    def get_cart_fee(self, cart_value: int) -> int:
+        """Compute the fee related to the cart value.
+        
+        :param cart_value: the cart value of the order
+        :return: additional fee related to the cart value
+        """
+
+        cart_fee = 0
+        # Check if cart value smaller than a minimum threshold
+        if cart_value < self.min_order_no_surcharge:
+            # Add fee
+            cart_fee = self.min_order_no_surcharge - cart_value
+
+        return cart_fee
+
+    def get_distance_fee(self, delivery_distance: int) -> int:
+        """Compute the fee related to the distance of the delivery.
+
+        :param delivery_distance: the delivery distance of the order
+        :return: additional fee related to the distance
+        """
+
+        # Number of distance blocks to which we add a fee
+        n_times = math.ceil(delivery_distance / self.distance_block_size)
+        return n_times * self.distance_fee
+
+    def get_items_fee(self, n_items: int) -> int:
+        """Compute the fee related to the number of items.
+        
+        :param n_items: the number of items of the order
+        :return: additional fee related to the number of items
+        """
+
+        # Number of additional items to the ones that are fee free
+        n = n_items - self.n_items_free
+        return n * self.item_fee
+
+    def get_special_rush_fee(self, delivery_fee: int) -> int:
+        """Compute the final delivery fee applying the special rush day multiplier.
+        
+        :param delivery_fee: current total delivery fee
+        :return: total delivery fee after applying the multiplier
+        """
+
+        return delivery_fee * self.multiplier
+
     def compute_delivery_fee(self, payload: dict) -> int:
         """Compute the total delivery fee of an order.
         
         :param payload: dictionary containing all delivery order parameters
         :return: total delivery fee
         """
+
         delivery_fee = 0
 
         cart_value          = payload['cart_value']
@@ -75,32 +122,27 @@ class Calculator:
         n_items             = payload['number_of_items']
         order_time          = payload['time']
 
-        # Multiplier for the Friday rush
-        multiplier = 1
-
         # Check if cart value greater than 100€
         if cart_value < self.min_order_free_delivery:
-            # Check if special rush weekday
-            if self.is_friday_rush(order_time):
-                multiplier = self.multiplier # update multiplier
             
-            # Cart value fee (if smaller than 10€)
-            if cart_value < self.min_order_no_surcharge:
-                delivery_fee += (self.min_order_no_surcharge - cart_value)
+            # Add cart value fee
+            delivery_fee += self.get_cart_fee(cart_value)
 
-            # Distance fee
-            n_times = math.ceil(delivery_distance / self.distance_block_size)
-            delivery_fee += (n_times * self.distance_fee)
+            # Add distance fee
+            delivery_fee += self.get_distance_fee(delivery_distance)
 
-            # Number of items fee
-            n = n_items - self.n_items_free
-            delivery_fee += (n * self.item_fee)
+            # Add number of items fee
+            delivery_fee += self.get_items_fee(n_items)
 
-            delivery_fee *= multiplier
-            # Check if total fee greater than 15€
-            if delivery_fee > self.max_fee:
-                delivery_fee = self.max_fee
+            # Apply multiplier if special rush day
+            if self.is_special_rush(order_time):
+                delivery_fee = self.get_special_rush_fee(delivery_fee)
+
+            # Total delivery fee cannot be greater than a maximum value
+            delivery_fee = min(delivery_fee, self.max_fee)
 
         return int(delivery_fee)
+
+    
 
     
