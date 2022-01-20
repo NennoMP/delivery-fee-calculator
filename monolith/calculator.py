@@ -70,7 +70,7 @@ class Calculator:
         """
 
         cart_fee = 0
-        # Check if cart value smaller than a minimum threshold
+        # Check if cart value smaller than 10€
         if cart_value < self.min_order_no_surcharge:
             # Add fee
             cart_fee = self.min_order_no_surcharge - cart_value
@@ -84,7 +84,7 @@ class Calculator:
         :return: additional fee related to the distance
         """
 
-        # Number of distance blocks to which we add a fee
+        # Number of distance blocks (500m) to which we add a fee
         n_times = math.ceil(delivery_distance / self.distance_block_size)
         return n_times * self.distance_fee
 
@@ -95,7 +95,7 @@ class Calculator:
         :return: additional fee related to the number of items
         """
 
-        # Number of additional items to the ones that are fee free
+        # Number of additional items (> 4) to the ones that are fee free
         n = n_items - self.n_items_free
         return n * self.item_fee
 
@@ -138,7 +138,7 @@ class Calculator:
             if self.is_special_rush(order_time):
                 delivery_fee = self.get_special_rush_fee(delivery_fee)
 
-            # Total delivery fee cannot be greater than a maximum value
+            # Total delivery fee cannot be greater than 15€
             delivery_fee = min(delivery_fee, self.max_fee)
 
         return int(delivery_fee)
