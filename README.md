@@ -7,7 +7,7 @@
 ## Overview
 The application is implemented with a monolith-based architecture, since it is not complex enough for a microservice-based one, is completely Dockerized and PEP8 compliant.
 
-In order to create OpenAPI documentation for the APIs, Swagger and Connexion framework were used. The application should be running on **localhost:5000 (127.0.0.1:5000)** and the Swagger interface, which allows to analyze and test the endpoints simply from the web-browser, can be accessed at **localhost/ui (127.0.0.1:5000/ui)**.
+In order to create OpenAPI documentation for the APIs, Swagger and Connexion framework were used. The application should be running on **localhost:5000 (127.0.0.1:5000)** and the Swagger interface, which allows to analyze and test the endpoints simply from the web-browser, can be accessed at **localhost:5000/ui (127.0.0.1:5000/ui)**.
 
 Some **CI/CD tools (CircleCI, Codecov)** were used in order to build and test the project, as can be seen from the above badges, and, from a security point of view, the application was tested with **Bandit** (static vulnerabilities' analysis).
 
@@ -39,7 +39,7 @@ For what concern data validation, the `marshmallow` library was used in order to
 I would've added rate limiting and payload size limits in order to prevent possible DoS and brute force attacks. However, I thought this could be a bit overkill for this assignment and I decided to not implement them, since they were not requirements.
 
 ## Instructions
-You can decide to test/run the application with or without Docker, notice that if you're on Windows you **MUST** run the application with Docker (since `time.tzset()`) is available only on Unix).
+You can decide to test/run the application with or without Docker, notice that if you're on Windows you **MUST** run the application with Docker (since `time.tzset()` is available only on Unix).
 Below you can find a short tutorial for both approaches.
 ### Run the application (Docker version)
 
@@ -49,7 +49,7 @@ If you want to run the application with Docker, make sure you have Docker Deskto
 2. Build the project with `docker-compose build`
 3. Run the application with `docker-compose up`
 
-### Run the application (Flask version)
+### Run the application (Script version)
 
 If you want to run the application without Docker, you have to follow these steps:
 
