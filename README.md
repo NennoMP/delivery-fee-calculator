@@ -4,6 +4,7 @@
 [![codecov](https://codecov.io/gh/NennoMP/delivery-fee-calculator/branch/main/graph/badge.svg?token=STRMRZLL8T)](https://codecov.io/gh/NennoMP/delivery-fee-calculator)
 [![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
 
+
 ## Overview
 The application is implemented with a monolith-based architecture, since it is not complex enough for a microservice-based one, is completely Dockerized and PEP8 compliant.
 
