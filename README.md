@@ -5,6 +5,9 @@
 [![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
 
 
+## Assignment
+For the [instructions](https://github.com/woltapp/engineering-summer-intern-2022) refer to the official repository.
+
 ## Overview
 The application is implemented with a monolith-based architecture, since it is not complex enough for a microservice-based one, is completely Dockerized and PEP8 compliant.
 
