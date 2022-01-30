@@ -11,9 +11,9 @@ For the [instructions](https://github.com/woltapp/engineering-summer-intern-2022
 ## Overview
 The application is implemented with a monolith-based architecture, since it is not complex enough for a microservice-based one, is completely Dockerized and PEP8 compliant.
 
-In order to create OpenAPI documentation for the APIs, Swagger and Connexion framework were used. The application should be running on **localhost:5000 (127.0.0.1:5000)** and the Swagger interface, which allows to analyze and test the endpoints simply from the web-browser, can be accessed at **localhost:5000/ui (127.0.0.1:5000/ui)**.
+In order to create [OpenAPI](https://www.openapis.org/) documentation for the APIs, [Swagger](https://swagger.io/specification/) and [Connexion](https://connexion.readthedocs.io/en/latest/) framework were used. The application should be running on **localhost:5000 (127.0.0.1:5000)** and the Swagger interface, which allows to analyze and test the endpoints simply from the web-browser, can be accessed at **localhost:5000/ui (127.0.0.1:5000/ui)**.
 
-Some **CI/CD tools (CircleCI, Codecov)** were used in order to build and test the project, as can be seen from the above badges, and, from a security point of view, the application was tested with **Bandit** (static vulnerabilities' analysis).
+Some **CI/CD tools ([CircleCI](https://circleci.com/), [Codecov](https://about.codecov.io/))** were used in order to build and test the project, as can be seen from the above badges, and, from a security point of view, the application was tested with **Bandit** (static vulnerabilities' analysis).
 
 ### Settings
 Static data related to the application is stored in the configuation file `settings.json`.
